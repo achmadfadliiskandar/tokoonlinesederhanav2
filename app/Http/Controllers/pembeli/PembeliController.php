@@ -69,8 +69,8 @@ class PembeliController extends Controller
         $transaksis = Transaksi::where('user_id',Auth::user()->id)->get();
         return view('pembeli.order',compact('transaksis'));
     }
-    public function detailorder($id){
-        $transaksis = Transaksi::with('detailkeranjang')->where('id',$id)->first();
+    public function detailorder($kodebayar){
+        $transaksis = Transaksi::with('detailkeranjang')->where('kodebayar',$kodebayar)->firstOrFail();
         if ($transaksis == null) {
             return abort(404);
         } else {

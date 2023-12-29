@@ -23,8 +23,12 @@
         <td>{{$transaksi->alamatpengiriman}}</td>
         <td>{{$transaksi->tanggaltransaksi}}</td>
         <td>{{$transaksi->kodebayar}}</td>
-        <td>{{$transaksi->statustransaksi}}</td>
-        <td><a href="{{url('detailorder/'.$transaksi->id)}}" class="btn btn-info">Detail Transaksi</a></td>
+        @if($transaksi->statustransaki == "lunas")
+        <td class='text-success'>{{$transaksi->statustransaksi}}</td>
+        @else
+        <td class='text-danger'>{{$transaksi->statustransaksi}}</td>
+        @endif
+        <td><a href="{{url('detailorder/'.$transaksi->kodebayar)}}" class="btn btn-info">Detail Transaksi</a></td>
     </tr>
     @empty
     <td colspan="6">kosong</td>

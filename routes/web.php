@@ -133,7 +133,7 @@ Route::controller(PembeliController::class)->group(function(){
         Route::get('/pembelichangepwd','pembelichangepwd');
         Route::post('/pembelichpwd','pembelichpwd');
         Route::get('/pembeliorder/{id}/{name}','pembeliorder');
-        Route::get('/detailorder/{id}','detailorder');
+        Route::get('/detailorder/{kodebayar}','detailorder');
     });
 });
 // end note** urus pembeli di sini aja
