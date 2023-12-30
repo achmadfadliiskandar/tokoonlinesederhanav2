@@ -134,6 +134,7 @@ Route::controller(PembeliController::class)->group(function(){
         Route::post('/pembelichpwd','pembelichpwd');
         Route::get('/pembeliorder/{id}/{name}','pembeliorder');
         Route::get('/detailorder/{kodebayar}','detailorder');
+        Route::post('/pembelibayar/{kodebayar}','pembelibayar');
     });
 });
 // end note** urus pembeli di sini aja

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Transaksi;
 use App\Models\DetailKeranjang;
+use App\Models\Pembayaran;
 
 class PembeliController extends Controller
 {
@@ -76,6 +77,28 @@ class PembeliController extends Controller
         } else {
             return view('pembeli.detailorder',compact('transaksis'));
         }
-        
+
+    }
+    public function pembelibayar(Request $request,$kodebayar){
+        $validated = $request->validate([
+            'totalpembayaran' => 'required',
+        ]);
+        $transaksis = Transaksi::where('kodebayar',$kodebayar)->firstOrFail();
+        $detailtf = new Pembayaran;
+        $detailtf->transaksis_id = $transaksis->id;
+        $detailtf->kodebayar = $transaksis->kodebayar;
+        $detailtf->totalpembayaran = $request->totalpembayaran;
+        $detailtf->nominalpembayaran = $transaksis->totalsemuaharga;
+        if ($request->totalpembayaran == $transaksis->totalsemuaharga) {
+            $detailtf->kembalianpembayaran = $request->totalpembayaran - $transaksis->totalsemuaharga;
+            $detailtf->user_id = Auth::user()->id;
+            $detailtf->save();
+            $transaksiss = Transaksi::find($transaksis->id);
+            $transaksiss->statustransaksi = "lunas";
+            $transaksiss->save();
+            return redirect('pembeliorder/'.Auth::user()->id.'/'.Auth::user()->name)->with('status','pembayaran berhasil terima kasih');
+        }else{
+            return back()->with('fail','pembayaran gagal');
+        }
     }
 }

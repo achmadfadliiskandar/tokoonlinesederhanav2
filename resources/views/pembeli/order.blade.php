@@ -4,6 +4,11 @@
 
 @section("section")
 <h2 class='text-capitalize'>Transaksi Anda</h2>
+@if (session('status'))
+    <div class="alert alert-success">
+        {{ session('status') }}
+    </div>
+@endif
 <div class="table-responsive">
 <table class="table table-bordered table table-striped" id="example">
   <thead>
@@ -23,10 +28,10 @@
         <td>{{$transaksi->alamatpengiriman}}</td>
         <td>{{$transaksi->tanggaltransaksi}}</td>
         <td>{{$transaksi->kodebayar}}</td>
-        @if($transaksi->statustransaki == "lunas")
-        <td class='text-success'>{{$transaksi->statustransaksi}}</td>
+        @if($transaksi->statustransaksi == "lunas")
+        <td class="text-success">{{$transaksi->statustransaksi}}</td>
         @else
-        <td class='text-danger'>{{$transaksi->statustransaksi}}</td>
+        <td class="text-danger">{{$transaksi->statustransaksi}}</td>
         @endif
         <td><a href="{{url('detailorder/'.$transaksi->kodebayar)}}" class="btn btn-info">Detail Transaksi</a></td>
     </tr>
