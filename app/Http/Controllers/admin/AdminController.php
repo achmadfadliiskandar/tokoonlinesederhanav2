@@ -329,4 +329,8 @@ class AdminController extends Controller
         $paylunas->save();
         return redirect("adminpay")->with('status','pembayaran berhasil lunas');
     }
+    public function adminpaytf(){
+        $transaksisss = Transaksi::where('metodepembayaran','transfer')->get();
+        return view('admin.adminpay',compact('transaksisss'));
+    }
 }

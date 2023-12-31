@@ -98,6 +98,7 @@ Route::middleware(['auth','checkRole:admin'])->group(function(){
         Route::delete('/admindeletebarang/{id}','admindeletebarang');
         Route::get('/adminpay','adminpay');
         Route::put('/adminupdatepembayaran/{id}','adminupdatepembayaran');
+        Route::get('/adminpaytf','adminpaytf');
     });
 });
 // end note** urus admin di sini aja
@@ -122,6 +123,8 @@ Route::middleware(['auth','checkRole:penjual'])->group(function(){
         Route::get('/penjualeditbarang/{slug}','penjualeditbarang');
         Route::put('/penjualupdatebarang/{id}','penjualupdatebarang');
         Route::delete('/penjualdeletebarang/{id}','penjualdeletebarang');
+        Route::get('/penjualpembayaran','penjualpembayaran');
+        Route::get('/detailtransfer/{id}','penjualdetailtransfer');
     });
 });
 // end note** urus penjual di sini aja

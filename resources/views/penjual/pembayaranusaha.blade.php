@@ -5,14 +5,6 @@
 @section("section")
 <h2>Ruang Pembayaran</h2>
 <p>User : {{Auth::user()->role}}</p>
-<ul class="nav nav-pills nav-fill my-3">
-  <li class="nav-item">
-    <a class="nav-link {{request()->is('adminpay')?'active':''}}" aria-current="page" href="{{url('adminpay')}}">Pembayaran W Cod</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link {{request()->is('adminpaytf')?'active':''}}" href="{{url('adminpaytf')}}">Pembayaran W Transfer</a>
-  </li>
-</ul>
 <div class="container">
 @if ($errors->any())
     <div class="alert alert-danger">
@@ -36,33 +28,30 @@
       <th scope="col">User</th>
       <th scope="col">Tanggal Pembayaran</th>
       <th scope="col">Status</th>
+      <th scope="col">Kode Pembayaran</th>
+      <th scope="col">Metode Pembayaran</th>
       <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
-    @foreach($transaksisss as $transaksi)
+    @foreach($transaksis as $transaksi)
     <tr>
         <td>{{$loop->iteration}}</td>
         <td>{{$transaksi->user->name}}</td>
         <td>{{$transaksi->tanggaltransaksi}}</td>
+        <td><span class="text-dark">{{$transaksi->statustransaksi}}</span></td>
+        <td>{{$transaksi->kodebayar}}</td>
+        <td>{{$transaksi->metodepembayaran}}</td>
         <td>
-            @if($transaksi->statustransaksi == "pending")
-            <span class="text-danger">{{$transaksi->statustransaksi}}</span>
-            @else 
-            <span class="text-info">{{$transaksi->statustransaksi}}</span>
-            @endif
-        </td>
-        <td>
-            <form action="{{url('adminupdatepembayaran/'.$transaksi->id)}}" method="post">
-                @csrf
-                @method("PUT")
-                <button type="submit" class="btn btn-success">Lunaskan</button>
-            </form>
+            <a href="{{url('detailtransfer/'.$transaksi->id)}}" class="btn btn-info">Detail Transaksi</a>
         </td>
     </tr>
     @endforeach
   </tbody>
 </table>
+<h3>Note</h3>
+<p>*pending : tunggu sampai admin  menyatakan statusnya lunas lalu silahkan siap2 mengantarkan barang</p>
+<p>*transfer :  pembeli sudah membayar barangnya silahkan bersiap untuk mengantarkan</p>
 </div>
 </div>
 @endsection

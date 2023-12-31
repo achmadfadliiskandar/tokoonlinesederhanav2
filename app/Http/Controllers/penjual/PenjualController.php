@@ -10,6 +10,7 @@ use App\Models\Penjual;
 use App\Models\Barang;
 use App\Models\Kategori;
 use App\Models\Bank;
+use App\Models\Transaksi;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
@@ -252,5 +253,17 @@ class PenjualController extends Controller
         }
         $barangs->delete();
         return redirect("penjualbarang")->with('status','Barang berhasil dihapus');
+    }
+    public function penjualpembayaran(){
+        $transaksis = Transaksi::all();
+        return view('penjual.pembayaranusaha',compact('transaksis'));
+    }
+    public function penjualdetailtransfer($id){
+        $transaksis = Transaksi::with('detailkeranjang')->where('id',$id)->first();
+        if ($transaksis == null) {
+            return abort(404);
+        } else {
+            return view('penjual.detailtransfer',compact('transaksis'));
+        }
     }
 }

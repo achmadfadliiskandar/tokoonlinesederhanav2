@@ -60,6 +60,9 @@
         <li class="nav-item">
             <a class="nav-link text-capitalize {{(request()->is('penjualbarang')) ? 'active' : '' }}" href="{{url('penjualbarang')}}">Penjual Barang</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link text-capitalize {{(request()->is('penjualpembayaran')) ? 'active' : '' }}" href="{{url('penjualpembayaran')}}">Kelola Pembayaran</a>
+        </li>
         @endif
         @if(Auth::user()->role == 'pembeli')
         <li class="nav-item">
