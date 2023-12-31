@@ -16,4 +16,7 @@ class Transaksi extends Model
     public function detailkeranjang(){
         return $this->hasMany(DetailKeranjang::class,'transaksis_id');
     }
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

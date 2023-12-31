@@ -96,6 +96,8 @@ Route::middleware(['auth','checkRole:admin'])->group(function(){
         Route::get('/admineditbarang/{slug}','admineditbarang');
         Route::put('/adminupdatebarang/{id}','adminupdatebarang');
         Route::delete('/admindeletebarang/{id}','admindeletebarang');
+        Route::get('/adminpay','adminpay');
+        Route::put('/adminupdatepembayaran/{id}','adminupdatepembayaran');
     });
 });
 // end note** urus admin di sini aja

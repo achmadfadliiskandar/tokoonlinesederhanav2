@@ -55,4 +55,7 @@ class User extends Authenticatable
     public function keranjang(){
         return $this->hasMany(Keranjang::class);
     }
+    public function transaksi(){
+        return $this->hasOne(Transaksi::class);
+    }
 }

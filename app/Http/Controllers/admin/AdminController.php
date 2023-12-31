@@ -12,6 +12,7 @@ use App\Models\Penjual;
 use App\Models\Kategori;
 use App\Models\Barang;
 use App\Models\Bank;
+use App\Models\Transaksi;
 
 class AdminController extends Controller
 {
@@ -317,5 +318,15 @@ class AdminController extends Controller
         }
         $barangs->delete();
         return redirect("adminbarang")->with('status','Barang berhasil dihapus');
+    }
+    public function adminpay(){
+        $transaksisss = Transaksi::where('metodepembayaran','cod')->get();
+        return view('admin.adminpay',compact('transaksisss'));
+    }
+    public function adminupdatepembayaran(Request $request,$id){
+        $paylunas = Transaksi::find($id);
+        $paylunas->statustransaksi = "lunas";
+        $paylunas->save();
+        return redirect("adminpay")->with('status','pembayaran berhasil lunas');
     }
 }
