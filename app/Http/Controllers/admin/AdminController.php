@@ -333,4 +333,8 @@ class AdminController extends Controller
         $transaksisss = Transaksi::where('metodepembayaran','transfer')->get();
         return view('admin.adminpay',compact('transaksisss'));
     }
+    public function adminlunas(Request $request){
+        Transaksi::query()->update(['statustransaksi' => 'lunas']);
+        return redirect("adminpay")->with('status','pembayaran berhasil lunas semua');
+    }
 }

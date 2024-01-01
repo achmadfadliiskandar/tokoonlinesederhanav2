@@ -28,6 +28,10 @@
         {{ session('status') }}
     </div>
 @endif
+<form action="{{url('adminlunas')}}" method="post">
+  @csrf
+<button type="submit" class="btn btn-primary my-3">Lunaskan Semua</button>
+</form>
 <div class="table-responsive">
 <table class="table table-bordered table table-striped" id="example">
   <thead>
