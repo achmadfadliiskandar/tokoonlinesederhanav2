@@ -1,66 +1,90 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+RANCANGAN E COMMERCE WARUNG WEB
+HAK AKSES(ROLE) HANYA ADA 2 YAITU : PENJUAL DAN PEMBELI
+TABEL USER
+ID
+NAMA
+EMAIL
+ROLE (PEMBELI,PENJUAL,ADMIN);
+PASSWORD
+ALAMAT
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+TABEL BARANG(ONE TO ONE)
+ID BARANG
+ID USER(PENJUAL)
+SLUG
+GAMBAR BARANG
+ID PENJUAL
+NAMA BARANG
+HARGA BARANG
+STOK BARANG
+KONDISI BARANG(NULL)
 
-## About Laravel
+TABEL KATEGORI
+ID
+KATEGORI
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+TABEL BANK
+ID 
+NAMA BANK
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+TABEL PENJUAL
+ID
+ID_USER(PENJUAL)
+NAMA TOKO
+ALAMAT TOKO
+KODE POS
+SLUG
+PHOTO TOKO(BOLEH KOSONG)
+ID_BANK
+ID_KATEGORI(BOLEH KOSONG)
+CABANG TOKO(BOLEH KOSONG)
+MODAL TOKO(BOLEH KOSONG)
+TAHUN BUKA
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+TABEL KERANJANG(ONE TO ONE)
+ID KERANJANG
+ID USER(PEMBELI)
+ID BARANG(SUDAH BERELASI DENGAN USER)
+JUMLAH BELI
+TOTAL HARGA
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+TABEL TRANSAKSI
+ID TRANSAKSI
+ID USER(PEMBELI)
+ALAMAT PENGIRIMAN
+TOTAL JUMLAH BARANG
+TOTAL SEMUA HARGA
+TANGGAL TRANSAKSI
+JAM TRANSAKSI
+STATUS TRANSAKSI
+METODE PEMBAYARAN(COD,TRANSFER)
+KODE BAYAR
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+TABEL KERANJANG DETAIL (KONDISI KETIKA KERANJANG BENAR2 DIBELI) (ONE TO MANY)
+ID KERANJANG DETAIL
+ID TRANSAKSI
+ID KERANJANG
+ID USER(PEMBELI);
+ID PENJUAL
+ID BARANG
+STOK BARANG (berelasi dengan tabel barang)
+KODE BAYAR
 
-## Laravel Sponsors
+TABEL PEMBAYARAN(TABEL KHUSUS UNTUK USER YANG MELAKUKAN PEMBAYARAN MENGGUNAKAN METODE TRANSFER)
+ID PEMBAYARAN
+ID TRANSAKSI
+KODE BAYAR
+TOTAL PEMBAYARAN(TOTAL YANG HARUS DIBAYARKAN)
+NOMINAL PEMBAYARAN(INPUTKAN NILAI YANG AKAN DIBAYARKAN)
+KEMBALIAN PEMBAYARAN(KEMBALIAN DARI NOMINAL PEMBAYARAN - TOTAL PEMBAYARAN)
+ID USER
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+TEKNOLOGI YANG DIPAKAI
+1.LARAVEL10
+2.BOOTSTRAP 5.3
+3.TEMPLATE PENJUALAN START BOOTRSTRAP
+4.MYSQL 5.3
+5.JAVASCRIPT
+##SILAHKAN DI DONWLOAD DAN DICUSTOM##
