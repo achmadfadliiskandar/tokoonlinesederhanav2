@@ -100,6 +100,7 @@ Route::middleware(['auth','checkRole:admin'])->group(function(){
         Route::put('/adminupdatepembayaran/{id}','adminupdatepembayaran');
         Route::get('/adminpaytf','adminpaytf');
         Route::post('/adminlunas','adminlunas');
+        Route::get('/admindetailorder/{kodebayar}','admindetailorder');
     });
 });
 // end note** urus admin di sini aja

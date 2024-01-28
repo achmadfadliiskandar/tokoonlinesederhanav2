@@ -28,7 +28,7 @@
             <a class="nav-link text-capitalize {{(request()->is('adminbank')) ? 'active' : '' }}" href="{{url('adminbank')}}">Data Bank</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-capitalize {{(request()->is('adminpay')) ? 'active' : '' }}" href="{{url('adminpay')}}">Data Pembayaran</a>
+            <a class="nav-link text-capitalize {{(request()->is('adminpay')) ? 'active' : '' }} || {{(request()->is('adminpaytf')) ? 'active' : '' }}" href="{{url('adminpay')}}">Data Pembayaran</a>
         </li>
         <li class="nav-item">
             <a class="nav-link text-capitalize {{(request()->is('adminsetting')) ? 'active' : '' }}" href="{{url('adminsetting')}}">Pengaturan WarungWeb</a>

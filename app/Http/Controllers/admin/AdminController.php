@@ -337,4 +337,12 @@ class AdminController extends Controller
         Transaksi::query()->update(['statustransaksi' => 'lunas']);
         return redirect("adminpay")->with('status','pembayaran berhasil lunas semua');
     }
+    public function admindetailorder($kodebayar){
+        $transaksis = Transaksi::with('detailkeranjang')->where('kodebayar',$kodebayar)->firstOrFail();
+        if ($transaksis == null) {
+            return abort(404);
+        } else {
+            return view('admin.admindetailorder',compact('transaksis'));
+        }
+    }
 }

@@ -57,11 +57,12 @@
             @endif
         </td>
         <td>
-            <form action="{{url('adminupdatepembayaran/'.$transaksi->id)}}" method="post">
+            <form action="{{url('adminupdatepembayaran/'.$transaksi->id)}}" class="d-inline-block" method="post">
                 @csrf
                 @method("PUT")
                 <button type="submit" class="btn btn-success">Lunaskan</button>
             </form>
+            <a href="{{url('admindetailorder/'.$transaksi->kodebayar)}}" class="btn btn-info">Detail Transaksi</a>
         </td>
     </tr>
     @endforeach
