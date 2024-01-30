@@ -19,4 +19,7 @@ class DetailKeranjang extends Model
     public function transaksi(){
         return $this->belongsTo(Transaksi::class);
     }
+    public function penjuals(){
+        return $this->belongsTo(Penjual::class);
+    }
 }

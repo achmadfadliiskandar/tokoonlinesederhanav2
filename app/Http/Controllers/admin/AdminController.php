@@ -13,6 +13,7 @@ use App\Models\Kategori;
 use App\Models\Barang;
 use App\Models\Bank;
 use App\Models\Transaksi;
+use App\Models\DetailKeranjang;
 
 class AdminController extends Controller
 {
@@ -25,7 +26,14 @@ class AdminController extends Controller
         $barang = Barang::count();
         $pembeli = User::where('role','pembeli')->count();
         $penjuals = User::where('role','penjual')->count();
-        return view('admin.index',compact('cuser','penjual','bank','kategori','barang','pembeli','penjuals'));
+        $transaksi = Transaksi::count();
+        $transaksii = Transaksi::where('statustransaksi','lunas')->count();
+        $detailbarang = DetailKeranjang::select('barangs_id')->selectRaw('COUNT(*) as total')->groupBy('barangs_id')->orderByDesc('total')->get();
+        $detailkeranjang = DetailKeranjang::select('penjuals_id')->selectRaw('COUNT(*) as total')->groupBy('penjuals_id')->orderByDesc('total')->get();
+        // foreach ($detailkeranjang as $data) {
+        //     echo "Penjual ID: {$data->penjuals_id}, Total: {$data->total}\n";
+        // }
+        return view('admin.index',compact('cuser','penjual','bank','kategori','barang','pembeli','penjuals','transaksi','transaksii','detailkeranjang','detailbarang'));
     }
     // end now
 

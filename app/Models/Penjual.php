@@ -19,4 +19,7 @@ class Penjual extends Model
     public function barang(){
         return $this->belongsTo(Barang::class);
     }
+    public function DetailKeranjang(){
+        return $this->hasMany(DetailKeranjang::class);
+    }
 }
