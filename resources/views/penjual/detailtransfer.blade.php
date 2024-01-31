@@ -4,6 +4,7 @@
 
 @section("section")
 <h2>Detail Transaksi : {{Auth::user()->name}}</h2>
+<p>Alamat Pengiriman : {{$transaksis->alamatpengiriman}}</p>
 @if (session('fail'))
     <div class="alert alert-danger">
         {{ session('fail') }}
