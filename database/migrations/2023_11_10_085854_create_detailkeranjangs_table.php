@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId("penjuals_id");
             $table->foreign('penjuals_id')->references('id')->on('penjuals')->constrained()->onUpdate('cascade')->onDelete('cascade');
             // penjual
+            $table->string("statustransaksi");
             // barang
             $table->foreignId("barangs_id");
             $table->foreign('barangs_id')->references('id')->on('barangs')->constrained()->onUpdate('cascade')->onDelete('cascade');
