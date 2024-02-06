@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pembayarans', function (Blueprint $table) {
-            $table->id();
-            $table->integer("transaksis_id");
-            $table->string("kodebayar");
-            $table->integer("totalpembayaran");
-            $table->integer("nominalpembayaran");
-            $table->integer("kembalianpembayaran");
-            $table->integer("user_id");
-            $table->timestamps();
-        });
+        // Schema::create('pembayarans', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->integer("transaksis_id");
+        //     $table->string("kodebayar");
+        //     $table->integer("totalpembayaran");
+        //     $table->integer("nominalpembayaran");
+        //     $table->integer("kembalianpembayaran");
+        //     $table->integer("user_id");
+        //     $table->timestamps();
+        // });
     }
 
     /**

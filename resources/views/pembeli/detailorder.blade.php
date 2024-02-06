@@ -37,7 +37,7 @@
 </table>
 </div>
 <div class="alert alert-info my-3">Total Semua : {{number_format($transaksis->totalsemuaharga)}}</div>
-@if($transaksis->metodepembayaran == 'transfer' && $transaksis->statustransaksi == "pending")
+<!-- @if($transaksis->metodepembayaran == 'transfer' && $transaksis->statustransaksi == "pending")
 <h2 class="text-capitalize">Pembayaran Khusus</h2>
 <h4>Total Yang Harus Dibayar : {{number_format($transaksis->totalsemuaharga)}}</h4>
 <form action="{{url('pembelibayar/'.$transaksi->kodebayar)}}" method="post">
@@ -50,6 +50,6 @@
 </form>
 @else
 <p>tunggu barang dan persiapkan uangnya sebesar jumlah yang perlu dibayarkan di tempat/alamat yang anda inputkan</p>
-@endif
+@endif -->
 <a href="{{url('pembeliorder/'.Auth::user()->id.'/'.Auth::user()->name)}}" class='btn btn-warning'>Back</a>
 @endsection

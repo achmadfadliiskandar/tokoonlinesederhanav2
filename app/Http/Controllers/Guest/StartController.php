@@ -163,6 +163,7 @@ class StartController extends Controller
                 'transaksis_id'=> $transaksis->id,
                 'penjuals_id'=> $value->barang->penjual->id,
                 'barangs_id'=> $value->barangs_id,
+                'statustransaksi'=>'pending',
                 'stok'=> $value->stok,
                 'user_id'=> Auth::user()->id,
                 'kodebayar'=> $transaksis->kodebayar,
