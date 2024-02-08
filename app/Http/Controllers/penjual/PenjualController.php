@@ -11,6 +11,7 @@ use App\Models\Barang;
 use App\Models\Kategori;
 use App\Models\Bank;
 use App\Models\Transaksi;
+use App\Models\DetailKeranjang;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
@@ -265,5 +266,14 @@ class PenjualController extends Controller
         } else {
             return view('penjual.detailtransfer',compact('transaksis'));
         }
+    }
+    public function penjuallunas(Request $request,$id){
+        $transaction = Transaksi::findOrFail($id);
+        // Ubah status transaksi menjadi "lunas"
+        $transaction->statustransaksi = 'lunas';
+        $transaction->save();
+        // Ubah status detail transaksi yang sesuai menjadi "lunas"
+        $transaction->detailkeranjang()->update(['statustransaksi' => 'lunas']);
+        return redirect("penjualpembayaran")->with('status','pembayaran berhasil lunas');
     }
 }

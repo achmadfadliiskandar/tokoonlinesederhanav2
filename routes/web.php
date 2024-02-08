@@ -127,6 +127,7 @@ Route::middleware(['auth','checkRole:penjual'])->group(function(){
         Route::delete('/penjualdeletebarang/{id}','penjualdeletebarang');
         Route::get('/penjualpembayaran','penjualpembayaran');
         Route::get('/detailtransfer/{id}','penjualdetailtransfer');
+        Route::put('/penjuallunas/{id}','penjuallunas');
     });
 });
 // end note** urus penjual di sini aja

@@ -50,8 +50,8 @@
   </tbody>
 </table>
 <h3>Note</h3>
-<p>*pending : tunggu sampai admin  menyatakan statusnya lunas lalu silahkan siap2 mengantarkan barang</p>
-<p>*transfer :  pembeli sudah membayar barangnya silahkan bersiap untuk mengantarkan</p>
+<p>*pending : tunggu sampai anda  menyatakan statusnya lunas lalu silahkan siap2 mengantarkan barang</p>
+<p>*lunas :  pembeli sudah membayar barangnya silahkan bersiap untuk mengantarkan</p>
 </div>
 </div>
 @endsection

@@ -37,19 +37,33 @@
 </table>
 </div>
 <div class="alert alert-info my-3">Total Semua : {{number_format($transaksis->totalsemuaharga)}}</div>
-<!-- @if($transaksis->metodepembayaran == 'transfer' && $transaksis->statustransaksi == "pending")
-<h2 class="text-capitalize">Pembayaran Khusus</h2>
+@if($transaksis->metodepembayaran == 'transfer' && $transaksis->statustransaksi == "pending")
+<h2 class="text-capitalize">Pembayaran Transfer</h2>
 <h4>Total Yang Harus Dibayar : {{number_format($transaksis->totalsemuaharga)}}</h4>
-<form action="{{url('pembelibayar/'.$transaksi->kodebayar)}}" method="post">
+<h5>Metode Pembayaran : {{$transaksis->metodepembayaran}}</h5>
+@if($transaksis->statustransaksi == "lunas")
+<h6 class='text-capitalize text-success'>status transaksi : {{$transaksis->statustransaksi}}</h6>
+@else
+<h6 class='text-capitalize text-danger'>status transaksi : {{$transaksis->statustransaksi}}</h6>
+@endif
+<!-- <form action="{{url('pembelibayar/'.$transaksi->kodebayar)}}" method="post">
   @csrf
 <div class="mb-3">
   <label for="totalpembayaran" class="form-label">Total Pembayaran</label>
   <input type="number" class="form-control @error('totalpembayaran') is-invalid @enderror" id="totalpembayaran" name="totalpembayaran">
 </div>
 <button class="btn btn-primary my-3">Bayar Sekarang</button>
-</form>
+</form> -->
 @else
-<p>tunggu barang dan persiapkan uangnya sebesar jumlah yang perlu dibayarkan di tempat/alamat yang anda inputkan</p>
-@endif -->
+<!-- <h2 class="text-capitalize">Pembayaran Cod</h2> -->
+<h4>Total Yang Harus Dibayar : {{number_format($transaksis->totalsemuaharga)}}</h4>
+<h5>Metode Pembayaran : {{$transaksis->metodepembayaran}}</h5>
+@if($transaksis->statustransaksi == "lunas")
+<h6 class='text-capitalize text-success'>status transaksi : {{$transaksis->statustransaksi}}</h6>
+@else
+<h6 class='text-capitalize text-danger'>status transaksi : {{$transaksis->statustransaksi}}</h6>
+@endif
+<!-- <p class='text-capitalize'>Note* : tunggu barang dan persiapkan uangnya sebesar jumlah yang perlu dibayarkan di tempat/alamat yang anda inputkan</p> -->
+@endif
 <a href="{{url('pembeliorder/'.Auth::user()->id.'/'.Auth::user()->name)}}" class='btn btn-warning'>Back</a>
 @endsection

@@ -46,5 +46,10 @@
 </table>
 </div>
 <div class="alert alert-info my-3">Total Semua : {{number_format($transaksis->totalsemuaharga)}}</div>
+<form action="{{url('penjuallunas/'.$transaksis->id)}}" method="post" class="d-inline-block" onsubmit="return confirm('yakin??')">
+  @csrf
+  @method("PUT")
+<button type="submit" class="btn btn-primary my-3">Lunaskan Sekarang</button>
+</form>
 <a href="{{url('penjualpembayaran')}}" class='btn btn-warning'>Back</a>
 @endsection
