@@ -38,7 +38,7 @@
 </div>
 <div class="alert alert-info my-3">Total Semua : {{number_format($transaksis->totalsemuaharga)}}</div>
 @if($transaksis->metodepembayaran == 'transfer' && $transaksis->statustransaksi == "pending")
-<h2 class="text-capitalize">Pembayaran Transfer</h2>
+<h2 class="text-capitalize">Pembayaran {{$transaksis->metodepembayaran}}</h2>
 <h4>Total Yang Harus Dibayar : {{number_format($transaksis->totalsemuaharga)}}</h4>
 <h5>Metode Pembayaran : {{$transaksis->metodepembayaran}}</h5>
 @if($transaksis->statustransaksi == "lunas")
