@@ -18,6 +18,7 @@ return new class extends Migration
         //     $table->integer("totalpembayaran");
         //     $table->integer("nominalpembayaran");
         //     $table->integer("kembalianpembayaran");
+        //     $table->string("buktitf")->nullable();
         //     $table->integer("user_id");
         //     $table->timestamps();
         // });

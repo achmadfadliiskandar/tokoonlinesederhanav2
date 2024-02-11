@@ -55,7 +55,7 @@
 <button class="btn btn-primary my-3">Bayar Sekarang</button>
 </form> -->
 @else
-<!-- <h2 class="text-capitalize">Pembayaran Cod</h2> -->
+<h2 class="text-capitalize">Pembayaran {{$transaksis->metodepembayaran}}</h2>
 <h4>Total Yang Harus Dibayar : {{number_format($transaksis->totalsemuaharga)}}</h4>
 <h5>Metode Pembayaran : {{$transaksis->metodepembayaran}}</h5>
 @if($transaksis->statustransaksi == "lunas")
