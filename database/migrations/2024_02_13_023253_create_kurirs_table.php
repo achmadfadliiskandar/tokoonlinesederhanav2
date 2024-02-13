@@ -11,15 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pembayarans', function (Blueprint $table) {
+        Schema::create('kurirs', function (Blueprint $table) {
             $table->id();
-            $table->integer("transaksis_id");
-            $table->integer("kurirs_id");
-            $table->string("kodebayar");
-            $table->integer("totalpembayaran");
-            $table->integer("nominalpembayaran");
-            $table->integer("kembalianpembayaran");
-            $table->string("buktitf")->nullable();
+            $table->string("namaperusahaan");
             $table->integer("user_id");
             $table->timestamps();
         });
@@ -30,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pembayarans');
+        Schema::dropIfExists('kurirs');
     }
 };

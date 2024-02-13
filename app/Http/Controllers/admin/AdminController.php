@@ -13,6 +13,7 @@ use App\Models\Kategori;
 use App\Models\Barang;
 use App\Models\Bank;
 use App\Models\Transaksi;
+use App\Models\Kurir;
 use App\Models\DetailKeranjang;
 
 class AdminController extends Controller
@@ -352,5 +353,24 @@ class AdminController extends Controller
         } else {
             return view('admin.admindetailorder',compact('transaksis'));
         }
+    }
+    public function adminkurir(){
+        $kurirs = Kurir::all();
+        return view('admin/kurir/index',compact('kurirs'));
+    }
+    public function adminaddkurir(Request $request){
+        $validated = $request->validate([
+            'namaperusahaan' => 'required',
+        ]);
+        $flight = new Kurir;
+        $flight->namaperusahaan = strtoupper($request->namaperusahaan);
+        $flight->user_id = Auth::user()->id;
+        $flight->save();
+        return redirect('adminkurir')->with('status','Kurir Berhasil Ditambahkan');
+    }
+    public function admindeletekurir($id){
+        $kurirs = Kurir::findOrFail($id);
+        $kurirs->delete();
+        return redirect('adminkurir')->with('status','Kurir Berhasil Dihapus');
     }
 }

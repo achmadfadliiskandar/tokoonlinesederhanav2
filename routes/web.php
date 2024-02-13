@@ -101,6 +101,9 @@ Route::middleware(['auth','checkRole:admin'])->group(function(){
         Route::get('/adminpaytf','adminpaytf');
         Route::post('/adminlunas','adminlunas');
         Route::get('/admindetailorder/{kodebayar}','admindetailorder');
+        Route::get('/adminkurir','adminkurir');
+        Route::post('/adminaddkurir','adminaddkurir');
+        Route::delete('/admindeletekurir/{id}','admindeletekurir');
     });
 });
 // end note** urus admin di sini aja
