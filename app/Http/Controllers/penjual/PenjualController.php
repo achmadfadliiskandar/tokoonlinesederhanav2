@@ -267,13 +267,22 @@ class PenjualController extends Controller
             return view('penjual.detailtransfer',compact('transaksis'));
         }
     }
-    public function penjuallunas(Request $request,$id){
-        $transaction = Transaksi::findOrFail($id);
-        // Ubah status transaksi menjadi "lunas"
-        $transaction->statustransaksi = 'lunas';
-        $transaction->save();
-        // Ubah status detail transaksi yang sesuai menjadi "lunas"
-        $transaction->detailkeranjang()->update(['statustransaksi' => 'lunas']);
-        return redirect("penjualpembayaran")->with('status','pembayaran berhasil lunas');
+    // public function penjuallunas(Request $request,$id){
+    //     $transaction = Transaksi::findOrFail($id);
+    //     // Ubah status transaksi menjadi "lunas"
+    //     $transaction->statustransaksi = 'lunas';
+    //     $transaction->save();
+    //     // Ubah status detail transaksi yang sesuai menjadi "lunas"
+    //     $transaction->detailkeranjang()->update(['statustransaksi' => 'lunas']);
+    //     return redirect("penjualpembayaran")->with('status','pembayaran berhasil lunas');
+    // }
+    public function penjuallunas(Request $request){
+        $ids = $request->id;
+        foreach ($ids as $id) {
+            $detailKeranjang = DetailKeranjang::findOrFail($id);
+            $detailKeranjang->statustransaksi = 'lunas';
+            $detailKeranjang->save();
+            return redirect("penjualpembayaran")->with('status','pembayaran berhasil lunas');
+        }
     }
 }

@@ -130,7 +130,7 @@ Route::middleware(['auth','checkRole:penjual'])->group(function(){
         Route::delete('/penjualdeletebarang/{id}','penjualdeletebarang');
         Route::get('/penjualpembayaran','penjualpembayaran');
         Route::get('/detailtransfer/{id}','penjualdetailtransfer');
-        Route::put('/penjuallunas/{id}','penjuallunas');
+        Route::post('/penjuallunas','penjuallunas');
     });
 });
 // end note** urus penjual di sini aja
@@ -145,7 +145,9 @@ Route::controller(PembeliController::class)->group(function(){
         Route::post('/pembelichpwd','pembelichpwd');
         Route::get('/pembeliorder/{id}/{name}','pembeliorder');
         Route::get('/detailorder/{kodebayar}','detailorder');
-        Route::post('/pembelibayar/{kodebayar}','pembelibayar');
+        // Route::post('/pembelibayar/{kodebayar}','pembelibayar');
+        Route::post('/pembayarancod/{kodebayar}','pembayarancod');
+        Route::post('/pembayarantf/{kodebayar}','pembayarantf');
     });
 });
 // end note** urus pembeli di sini aja

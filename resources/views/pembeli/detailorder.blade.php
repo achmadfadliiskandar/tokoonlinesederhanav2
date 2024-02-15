@@ -37,6 +37,7 @@
 </table>
 </div>
 <div class="alert alert-info my-3">Total Semua : {{number_format($transaksis->totalsemuaharga)}}</div>
+<!-- metode pembayaran : transfer dan statustfnya : pending -->
 @if($transaksis->metodepembayaran == 'transfer' && $transaksis->statustransaksi == "pending")
 <h2 class="text-capitalize">Pembayaran {{$transaksis->metodepembayaran}}</h2>
 <h4>Total Yang Harus Dibayar : {{number_format($transaksis->totalsemuaharga)}}</h4>
@@ -46,15 +47,14 @@
 @else
 <h6 class='text-capitalize text-danger'>status transaksi : {{$transaksis->statustransaksi}}</h6>
 @endif
-<!-- <form action="{{url('pembelibayar/'.$transaksi->kodebayar)}}" method="post">
-  @csrf
-<div class="mb-3">
-  <label for="totalpembayaran" class="form-label">Total Pembayaran</label>
-  <input type="number" class="form-control @error('totalpembayaran') is-invalid @enderror" id="totalpembayaran" name="totalpembayaran">
-</div>
-<button class="btn btn-primary my-3">Bayar Sekarang</button>
-</form> -->
-@else
+<form action="{{url('pembayarantf')}}" method="post" enctype="multipart/form-data">
+  
+</form>
+<!-- end if statustransaksi -->
+<!-- batas -->
+@endif
+<!-- metode pembayaran : cod dan statustfnya : pending -->
+@if($transaksis->metodepembayaran == 'cod' && $transaksis->statustransaksi == "pending")
 <h2 class="text-capitalize">Pembayaran {{$transaksis->metodepembayaran}}</h2>
 <h4>Total Yang Harus Dibayar : {{number_format($transaksis->totalsemuaharga)}}</h4>
 <h5>Metode Pembayaran : {{$transaksis->metodepembayaran}}</h5>
@@ -63,7 +63,22 @@
 @else
 <h6 class='text-capitalize text-danger'>status transaksi : {{$transaksis->statustransaksi}}</h6>
 @endif
-<!-- <p class='text-capitalize'>Note* : tunggu barang dan persiapkan uangnya sebesar jumlah yang perlu dibayarkan di tempat/alamat yang anda inputkan</p> -->
+<form action="{{url('pembayarancod/'.$transaksi->kodebayar)}}" method="post" class="d-inline-block" onsubmit="return confirm('are you sure ? ')">
+@csrf
+<div class="mb-3">
+    <label for="kurir" class="form-label">Pilih Kurir</label>
+    <select class="form-select @error('kurirs_id') is-invalid @enderror" name="kurirs_id" aria-label="Default select example">
+    <option selected disabled>Open this select menu</option>
+    @foreach($kurirs as $kurir)
+    <option value="{{$kurir->id}}">{{$kurir->namaperusahaan}}</option>
+    @endforeach
+  </select>
+  </div>
+<button type="submit" class="btn btn-primary my-3">Konfirmasi Pembayaran</button>
+</form>
+<!-- end if statustransaksi -->
+<!-- batas -->
 @endif
+
 <a href="{{url('pembeliorder/'.Auth::user()->id.'/'.Auth::user()->name)}}" class='btn btn-warning'>Back</a>
 @endsection
