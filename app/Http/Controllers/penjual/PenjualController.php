@@ -278,11 +278,29 @@ class PenjualController extends Controller
     // }
     public function penjuallunas(Request $request){
         $ids = $request->id;
-        foreach ($ids as $id) {
-            $detailKeranjang = DetailKeranjang::findOrFail($id);
-            $detailKeranjang->statustransaksi = 'lunas';
-            $detailKeranjang->save();
-            return redirect("penjualpembayaran")->with('status','pembayaran berhasil lunas');
+        if (!empty($ids)) {
+            foreach ($ids as $id) {
+                $detailKeranjang = DetailKeranjang::findOrFail($id);
+                $detailKeranjang->statustransaksi = 'lunas';
+                $detailKeranjang->save();
+            }
+            // Ambil semua detail keranjang dengan id transaksi yang sama
+            $transaksiId = $detailKeranjang->transaksis_id;
+            $allDetailKeranjang = DetailKeranjang::where('transaksis_id', $transaksiId)->get();
+
+            // Hitung jumlah detail keranjang yang lunas
+            $lunasCount = $allDetailKeranjang->where('statustransaksi', 'lunas')->count();
+            $totalDetailKeranjang = $allDetailKeranjang->count();
+
+            // Jika semua detail keranjang sudah lunas, maka update status transaksi
+            if ($lunasCount === $totalDetailKeranjang) {
+                $transaksi = Transaksi::findOrFail($transaksiId);
+                $transaksi->statustransaksi = 'lunas';
+                $transaksi->save();
+            }
+            return redirect("penjualpembayaran")->with('status', 'pembayaran berhasil lunas');
+        } else {
+            return back()->with('fail', 'pembayaran gagal');
         }
-    }
+    }        
 }

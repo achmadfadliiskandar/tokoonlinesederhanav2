@@ -12,10 +12,10 @@
 @endif
 
 <div class="table-responsive">
-@php
-    $totalTransaksi = $transaksis->detailkeranjang->count();
-    $lunasCount = $transaksis->detailkeranjang->where('statustransaksi', 'lunas')->count();
-@endphp
+<?php 
+// $totalTransaksi = $transaksis->detailkeranjang->count();
+// $lunasCount = $transaksis->detailkeranjang->where('statustransaksi', 'lunas')->count();
+?>
 <form action="{{url('penjuallunas')}}" method="post" onsubmit="return confirm('yakin??')">
   @csrf
 <table class="table table-bordered table table-striped">
@@ -70,10 +70,7 @@
 <div class="alert alert-info my-3">Total Semua : {{number_format($transaksis->totalsemuaharga)}}</div>
 @if($transaksis->metodepembayaran == "cod")
 <button type="submit" class="btn btn-primary my-3">Lunaskan Sekarang</button>
-<!-- Tampilkan tombol istimewa jika semua transaksi lunas -->
-@if ($totalTransaksi > 0 && $totalTransaksi === $lunasCount)
-    <button class="btn btn-light">Istimewa</button>
-@endif
+
 @endif
 </form>
 <a href="{{url('penjualpembayaran')}}" class='btn btn-warning'>Back</a>
