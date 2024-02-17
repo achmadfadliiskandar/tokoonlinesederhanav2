@@ -5,6 +5,7 @@
 @section("section")
 <h2>Detail Transaksi : {{Auth::user()->name}}</h2>
 <p>Alamat Pengiriman : {{$transaksis->alamatpengiriman}}</p>
+<p>Metode Pembayaran : {{$transaksis->metodepembayaran}}</p>
 @if (session('fail'))
     <div class="alert alert-danger">
         {{ session('fail') }}
@@ -73,6 +74,12 @@
 
 @endif
 </form>
+@if($transaksis->metodepembayaran == "transfer")
+<h3>Bukti Pembayaran</h3>
+@foreach($pembayarans as $pembayaran)
+<img src="{{asset('buktitf/'.$pembayaran->buktitf)}}" class="img-fluid" alt="g ada">
+@endforeach
+@endif
 <a href="{{url('penjualpembayaran')}}" class='btn btn-warning'>Back</a>
 @endsection
 

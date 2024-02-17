@@ -10,6 +10,7 @@ use App\Models\Kurir;
 use App\Models\Transaksi;
 use App\Models\DetailKeranjang;
 use App\Models\Pembayaran;
+use Illuminate\Support\Facades\File;
 
 class PembeliController extends Controller
 {
@@ -119,7 +120,38 @@ class PembeliController extends Controller
         $detailcod->save();
         return redirect('pembeliorder/'.Auth::user()->id.'/'.Auth::user()->name)->with('status','pembayaran berhasil terima kasih');
     }
-    public function pembayarantf(Request $request){
-        return;
+    public function pembayarantf(Request $request,$kodebayar){
+        $validated = $request->validate([
+            'kurirs_id' => 'required',
+            'buktitf'=>'required'
+        ]);
+        $transaksis = Transaksi::where('kodebayar',$kodebayar)->firstOrFail();
+        $detailtf = new Pembayaran;
+        if ($request->hasFile("buktitf")) {
+            $file = $request->file("buktitf");
+            $extention = $file->getClientOriginalExtension();
+            $filename = time().'.'.$extention;
+            $file->move('buktitf',$filename);
+            $detailtf->buktitf = $filename;
+        }
+        $detailtf->transaksis_id = $transaksis->id;
+        $detailtf->kurirs_id = $request->kurirs_id;
+        $detailtf->kodebayar = $transaksis->kodebayar;
+        $detailtf->totalpembayaran = $transaksis->totalsemuaharga;
+        $detailtf->nominalpembayaran = $transaksis->totalsemuaharga;
+        $detailtf->kembalianpembayaran = $transaksis->totalsemuaharga - $transaksis->totalsemuaharga;
+        $detailtf->user_id = Auth::user()->id;
+        $detailtf->save();
+        // change status keranjang pada tabel keranjangs
+        $transaksiss = Transaksi::find($transaksis->id);
+        $transaksiss->statustransaksi = "lunas";
+        $transaksiss->save();
+        // change status detail keranjang pada tabel detailkeranjangs
+        $detailkeranjangs = DetailKeranjang::where('transaksis_id', $transaksis->id)->get();
+        foreach ($detailkeranjangs as $detailkeranjang) {
+            $detailkeranjang->statustransaksi = "lunas";
+            $detailkeranjang->save();
+        }
+        return redirect('pembeliorder/'.Auth::user()->id.'/'.Auth::user()->name)->with('status','pembayaran berhasil terima kasih');
     }
 }

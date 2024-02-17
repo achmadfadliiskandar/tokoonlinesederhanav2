@@ -12,6 +12,7 @@ use App\Models\Kategori;
 use App\Models\Bank;
 use App\Models\Transaksi;
 use App\Models\DetailKeranjang;
+use App\Models\Pembayaran;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
@@ -261,10 +262,11 @@ class PenjualController extends Controller
     }
     public function penjualdetailtransfer($id){
         $transaksis = Transaksi::with('detailkeranjang')->where('id',$id)->first();
+        $pembayarans = Pembayaran::where('transaksis_id',$transaksis->id)->get();
         if ($transaksis == null) {
             return abort(404);
         } else {
-            return view('penjual.detailtransfer',compact('transaksis'));
+            return view('penjual.detailtransfer',compact('transaksis','pembayarans'));
         }
     }
     // public function penjuallunas(Request $request,$id){

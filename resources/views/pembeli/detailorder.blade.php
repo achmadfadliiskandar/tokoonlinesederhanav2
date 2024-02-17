@@ -47,8 +47,22 @@
 @else
 <h6 class='text-capitalize text-danger'>status transaksi : {{$transaksis->statustransaksi}}</h6>
 @endif
-<form action="{{url('pembayarantf')}}" method="post" enctype="multipart/form-data">
-  
+<form action="{{url('pembayarantf/'.$transaksi->kodebayar)}}" method="post" class="d-inline" onsubmit="return confirm('are you sure ? ')" enctype="multipart/form-data">
+  @csrf
+  <div class="mb-3">
+    <label for="kurir" class="form-label">Pilih Kurir</label>
+    <select class="form-select @error('kurirs_id') is-invalid @enderror" name="kurirs_id" aria-label="Default select example">
+    <option selected disabled>Open this select menu</option>
+    @foreach($kurirs as $kurir)
+    <option value="{{$kurir->id}}">{{$kurir->namaperusahaan}}</option>
+    @endforeach
+  </select>
+  </div>
+  <div class="mb-3">
+  <label for="buktitf" class="form-label">Bukti Transferan</label>
+  <input type="file" class="form-control" id="buktitf" name="buktitf">
+</div>
+<button class="btn btn-primary" type="submit">Submit</button>
 </form>
 <!-- end if statustransaksi -->
 <!-- batas -->
