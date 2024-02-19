@@ -257,16 +257,31 @@ class PenjualController extends Controller
         return redirect("penjualbarang")->with('status','Barang berhasil dihapus');
     }
     public function penjualpembayaran(){
-        $transaksis = Transaksi::all();
+        // $transaksis = Transaksi::all();
+        $transaksis = Transaksi::with('detailkeranjang')
+        ->whereHas('detailkeranjang', function ($query) {
+            $query->whereHas('barang', function ($query) {
+                $query->where('user_id', auth()->id());
+            });
+        })
+        ->get();
         return view('penjual.pembayaranusaha',compact('transaksis'));
     }
     public function penjualdetailtransfer($id){
-        $transaksis = Transaksi::with('detailkeranjang')->where('id',$id)->first();
+        // $transaksis = Transaksi::with('detailkeranjang')->where('id',$id)->first();
+        $user_id = Auth::id();
+        $transaksis = Transaksi::with(['detailkeranjang' => function ($query) use ($user_id) {
+            $query->whereHas('barang', function ($query) use ($user_id) {
+                $query->where('user_id', $user_id);
+            });
+        }])->where('id', $id)->first();
         $pembayarans = Pembayaran::where('transaksis_id',$transaksis->id)->get();
+        $tf = Transaksi::where('kodebayar',$transaksis->kodebayar)->firstOrFail();
+        $pb = Pembayaran::where("transaksis_id",$transaksis->id)->count();
         if ($transaksis == null) {
             return abort(404);
         } else {
-            return view('penjual.detailtransfer',compact('transaksis','pembayarans'));
+            return view('penjual.detailtransfer',compact('transaksis','pembayarans','tf','pb'));
         }
     }
     // public function penjuallunas(Request $request,$id){

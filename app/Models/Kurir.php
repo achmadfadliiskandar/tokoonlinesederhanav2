@@ -12,4 +12,8 @@ class Kurir extends Model
     protected $table = 'kurirs';
 
     protected $guarded = ['id'];
+
+    public function pembayaran(){
+        return $this->hasOne(Pembayaran::class);
+    }
 }

@@ -12,4 +12,8 @@ class Pembayaran extends Model
     protected $table = 'pembayarans';
 
     protected $guarded = ["id"];
+
+    public function kurir(){
+        return $this->belongsTo(Kurir::class,'kurirs_id');
+    }
 }

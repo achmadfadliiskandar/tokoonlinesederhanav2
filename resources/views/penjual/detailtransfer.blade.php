@@ -6,6 +6,9 @@
 <h2>Detail Transaksi : {{Auth::user()->name}}</h2>
 <p>Alamat Pengiriman : {{$transaksis->alamatpengiriman}}</p>
 <p>Metode Pembayaran : {{$transaksis->metodepembayaran}}</p>
+@foreach($pembayarans as $pembayaran)
+<p>Kurir Yang Diminta : {{$pembayaran->kurir->namaperusahaan}}</p>
+@endforeach
 @if (session('fail'))
     <div class="alert alert-danger">
         {{ session('fail') }}
@@ -68,25 +71,38 @@
   </tbody>
 </table>
 </div>
+@php
+$totalHarga = 0;
+@endphp
+
+@foreach($transaksis->detailkeranjang as $detail)
+    @php
+        $totalHarga += $detail->barang->hargabarang * $detail->stok;
+    @endphp
+@endforeach
 <div class="alert alert-info my-3">Total Semua : {{number_format($transaksis->totalsemuaharga)}}</div>
+<div class="alert alert-danger">Total Yang Diajukan Ke Kurir : {{number_format($totalHarga)}}</div>
+@if($tf && $pb == 0)
+<div class="alert alert-secondary">tunggu usernya bayar dulu ya</div>
+@else
 @if($transaksis->metodepembayaran == "cod")
 <button type="submit" class="btn btn-primary my-3">Lunaskan Sekarang</button>
-
+@endif
 @endif
 </form>
 @if($transaksis->metodepembayaran == "transfer")
-<h3>Bukti Pembayaran</h3>
+<h3>Bukti Pembayaran Transfer</h3>
 @foreach($pembayarans as $pembayaran)
 <img src="{{asset('buktitf/'.$pembayaran->buktitf)}}" class="img-fluid" alt="g ada">
 @endforeach
 @endif
 @if($transaksis->metodepembayaran == "cod")
-<h3>Bukti Pembayaran</h3>
+<h3>Bukti Pembayaran Cod</h3>
 @foreach($pembayarans as $pembayaran)
 <p>Pembayaran Sebesar : {{$pembayaran->totalpembayaran}}</p>
 @endforeach
 @endif
-<a href="{{url('penjualpembayaran')}}" class='btn btn-warning'>Back</a>
+<a href="{{url('penjualpembayaran')}}" class='btn btn-warning my-3'>Back</a>
 @endsection
 
 
