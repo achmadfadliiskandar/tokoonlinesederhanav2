@@ -80,8 +80,15 @@
 <img src="{{asset('buktitf/'.$pembayaran->buktitf)}}" class="img-fluid" alt="g ada">
 @endforeach
 @endif
+@if($transaksis->metodepembayaran == "cod")
+<h3>Bukti Pembayaran</h3>
+@foreach($pembayarans as $pembayaran)
+<p>Pembayaran Sebesar : {{$pembayaran->totalpembayaran}}</p>
+@endforeach
+@endif
 <a href="{{url('penjualpembayaran')}}" class='btn btn-warning'>Back</a>
 @endsection
+
 
 <!-- @if($transaksis->metodepembayaran == "cod")
 <form action="{{url('penjuallunas/'.$transaksis->id)}}" method="post" class="d-inline-block" onsubmit="return confirm('yakin??')">

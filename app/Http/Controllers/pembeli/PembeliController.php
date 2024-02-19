@@ -109,16 +109,22 @@ class PembeliController extends Controller
             'kurirs_id' => 'required',
         ]);
         $transaksis = Transaksi::where('kodebayar',$kodebayar)->firstOrFail();
-        $detailcod = new Pembayaran;
-        $detailcod->transaksis_id = $transaksis->id;
-        $detailcod->kurirs_id = $request->kurirs_id;
-        $detailcod->kodebayar = $transaksis->kodebayar;
-        $detailcod->totalpembayaran = $transaksis->totalsemuaharga;
-        $detailcod->nominalpembayaran = $transaksis->totalsemuaharga;
-        $detailcod->kembalianpembayaran = $transaksis->totalsemuaharga - $transaksis->totalsemuaharga;
-        $detailcod->user_id = Auth::user()->id;
-        $detailcod->save();
-        return redirect('pembeliorder/'.Auth::user()->id.'/'.Auth::user()->name)->with('status','pembayaran berhasil terima kasih');
+        $pembayarans = Pembayaran::where("transaksis_id",$transaksis->id)->count();
+        if ($transaksis && $pembayarans == 0) {
+            $detailcod = new Pembayaran;
+            $detailcod->transaksis_id = $transaksis->id;
+            $detailcod->kurirs_id = $request->kurirs_id;
+            $detailcod->kodebayar = $transaksis->kodebayar;
+            $detailcod->totalpembayaran = $transaksis->totalsemuaharga;
+            $detailcod->nominalpembayaran = $transaksis->totalsemuaharga;
+            $detailcod->kembalianpembayaran = $transaksis->totalsemuaharga - $transaksis->totalsemuaharga;
+            $detailcod->user_id = Auth::user()->id;
+            $detailcod->save();
+            return redirect('pembeliorder/'.Auth::user()->id.'/'.Auth::user()->name)->with('status','pembayaran berhasil terima kasih');
+        } else {
+            return back()->with('fail','anda sudah melakukan pembayaran');
+        }
+        
     }
     public function pembayarantf(Request $request,$kodebayar){
         $validated = $request->validate([
